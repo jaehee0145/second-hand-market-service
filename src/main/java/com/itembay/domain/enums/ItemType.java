@@ -9,8 +9,8 @@ public enum ItemType {
     ACCOUNT("enum_account", "계정"),
     ETC("enum_etc", "기타");
 
-    String key;
-    String description;
+    private final String key;
+    private final String description;
 
     ItemType(String key, String description) {
         this.key = key;

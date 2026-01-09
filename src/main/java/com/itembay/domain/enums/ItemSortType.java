@@ -6,8 +6,8 @@ public enum ItemSortType {
     CREATED_ASC("enum_created_asc", "생성일 오름차순"),
     CREATED_DESC("enum_created_desc", "생성일 내림차순");
 
-    String key;
-    String description;
+    private final String key;
+    private final String description;
 
     ItemSortType(String key, String description) {
         this.key = key;
