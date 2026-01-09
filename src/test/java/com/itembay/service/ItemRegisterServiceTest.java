@@ -4,6 +4,7 @@ import com.itembay.domain.Item;
 import com.itembay.domain.enums.ItemType;
 import com.itembay.dto.ItemRegisterReqData;
 import com.itembay.repository.ItemRepository;
+import com.itembay.service.command.ItemCommandService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 public class ItemRegisterServiceTest {
 
     @Autowired
-    ItemService itemService;
+    ItemCommandService itemCommandService;
 
     @Autowired
     ItemRepository itemRepository;
@@ -45,7 +46,7 @@ public class ItemRegisterServiceTest {
                 .quantity(quantity)
                 .build();
 
-        itemService.registerItem(newItem);
+        itemCommandService.registerItem(newItem);
 
         // when
         List<Item> itemList = itemRepository.findAll();
@@ -75,7 +76,7 @@ public class ItemRegisterServiceTest {
                 .build();
 
         // when and then
-        assertThatThrownBy(() -> itemService.registerItem(newItem))
+        assertThatThrownBy(() -> itemCommandService.registerItem(newItem))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("서버 이름은 필수입니다.");
     }
@@ -102,7 +103,7 @@ public class ItemRegisterServiceTest {
                 .build();
 
         // when and then
-        assertThatThrownBy(() -> itemService.registerItem(newItem))
+        assertThatThrownBy(() -> itemCommandService.registerItem(newItem))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("거래 가격은 필수이고 0보다 커야 합니다.");
     }

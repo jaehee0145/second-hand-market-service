@@ -5,6 +5,7 @@ import com.itembay.domain.enums.ItemSortType;
 import com.itembay.domain.enums.ItemType;
 import com.itembay.dto.ItemSearchReqData;
 import com.itembay.repository.ItemRepository;
+import com.itembay.service.query.ItemQueryService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -21,7 +22,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ItemSearchServiceTest {
 
     @Autowired
-    ItemService itemService;
+    ItemQueryService itemQueryService;
 
     @Autowired
     ItemRepository itemRepository;
@@ -59,7 +60,7 @@ public class ItemSearchServiceTest {
                 .build();
 
         // when
-        Page<Item> result = itemService.searchItem(req);
+        Page<Item> result = itemQueryService.searchItem(req);
 
         // then
         assertThat(result.getTotalElements()).isEqualTo(5); // 전체 조건 일치 개수는 5개

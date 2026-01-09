@@ -1,18 +1,10 @@
-package com.itembay.service;
+package com.itembay.service.query;
 
 import com.itembay.domain.Item;
-import com.itembay.dto.ItemRegisterReqData;
 import com.itembay.dto.ItemSearchReqData;
 import org.springframework.data.domain.Page;
 
-public interface ItemService {
-
-    /**
-     * 아이템 등록
-     * @param itemRegisterReqData 아이템 등록 요청 데이터
-     * @return Item
-     */
-    Item registerItem(ItemRegisterReqData itemRegisterReqData);
+public interface ItemQueryService {
 
     /**
      * 아이템 조회

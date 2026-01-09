@@ -5,6 +5,7 @@ import com.itembay.domain.enums.ItemSortType;
 import com.itembay.domain.enums.ItemType;
 import com.itembay.dto.ItemSearchReqData;
 import com.itembay.repository.ItemRepository;
+import com.itembay.service.query.ItemQueryService;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -27,7 +28,7 @@ public class ItemCacheTest {
     ItemRepository itemRepository;
 
     @Autowired
-    ItemService itemService;
+    ItemQueryService itemQueryService;
 
     @Autowired
     CacheManager cacheManager;
@@ -64,10 +65,10 @@ public class ItemCacheTest {
 
         // when
         System.out.println("== 첫번째 호출 (DB 조회) ==");
-        Page<Item> firstResult = itemService.searchItem(req);
+        Page<Item> firstResult = itemQueryService.searchItem(req);
 
         System.out.println("== 두번째 호출 (캐시 사용) ==");
-        Page<Item> secondResult = itemService.searchItem(req);
+        Page<Item> secondResult = itemQueryService.searchItem(req);
 
         // then
         // 두 결과의 내용이 동일해야 함

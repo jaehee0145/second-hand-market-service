@@ -5,7 +5,8 @@ import com.itembay.dto.ItemRegisterReqData;
 import com.itembay.dto.ItemResponse;
 import com.itembay.dto.ItemSearchReqData;
 import com.itembay.dto.PageResponse;
-import com.itembay.service.ItemService;
+import com.itembay.service.command.ItemCommandService;
+import com.itembay.service.query.ItemQueryService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -20,18 +21,19 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class ItemApi {
 
-    private final ItemService itemService;
+    private final ItemCommandService itemCommandService;
+    private final ItemQueryService itemQueryService;
 
     @PostMapping("/api/items")
     public ResponseEntity<ItemResponse> registerItem(@Valid @RequestBody ItemRegisterReqData req) {
-        Item newItem = itemService.registerItem(req);
+        Item newItem = itemCommandService.registerItem(req);
         ItemResponse response = ItemResponse.from(newItem);
         return ResponseEntity.status(201).body(response);
     }
 
     @GetMapping("/api/items")
     public ResponseEntity<PageResponse<ItemResponse>> searchItem(@Valid @ModelAttribute ItemSearchReqData req) {
-        Page<Item> itemPage = itemService.searchItem(req);
+        Page<Item> itemPage = itemQueryService.searchItem(req);
         Page<ItemResponse> responsePage = itemPage.map(ItemResponse::from);
         return ResponseEntity.ok(PageResponse.of(responsePage));
     }
