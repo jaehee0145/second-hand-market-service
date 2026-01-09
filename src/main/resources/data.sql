@@ -1,0 +1,10 @@
+INSERT INTO item (server, seller_name, item_type, title, price, quantity, created_at) VALUES ('라엘', '테스터1', 'ITEM', '초보자의 검', 1000, 50, NOW());
+INSERT INTO item (server, seller_name, item_type, title, price, quantity, created_at) VALUES ('라엘', '테스터2', 'ITEM', '나무 지팡이', 1200, 30, NOW());
+INSERT INTO item (server, seller_name, item_type, title, price, quantity, created_at) VALUES ('데포', '장사꾼', 'ITEM', '강철 투구', 5500, 10, NOW());
+INSERT INTO item (server, seller_name, item_type, title, price, quantity, created_at) VALUES ('데포', '길드장', 'ITEM', '가죽 갑옷', 4000, 15, NOW());
+INSERT INTO item (server, seller_name, item_type, title, price, quantity, created_at) VALUES ('이실', '대장장이', 'ITEM', '은화살', 100, 1000, NOW());
+INSERT INTO item (server, seller_name, item_type, title, price, quantity, created_at) VALUES ('이실', '나그네', 'ITEM', '귀환 주문서', 500, 200, NOW());
+INSERT INTO item (server, seller_name, item_type, title, price, quantity, created_at) VALUES ('켄라', '보부상', 'ITEM', '체력 물약', 200, 500, NOW());
+INSERT INTO item (server, seller_name, item_type, title, price, quantity, created_at) VALUES ('켄라', '영주', 'ITEM', '마력 물약', 300, 400, NOW());
+INSERT INTO item (server, seller_name, item_type, title, price, quantity, created_at) VALUES ('라엘', '용병', 'ITEM', '용기의 물약', 2000, 50, NOW());
+INSERT INTO item (server, seller_name, item_type, title, price, quantity, created_at) VALUES ('데포', '은둔자', 'ITEM', '고대의 주문서', 100000, 1, NOW());
