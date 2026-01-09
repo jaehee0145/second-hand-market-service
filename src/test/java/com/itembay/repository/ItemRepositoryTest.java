@@ -39,13 +39,11 @@ class ItemRepositoryTest {
                 .quantity(quantity)
                 .build();
 
-        itemRepository.save(newItem);
 
         // when
-        List<Item> itemList = itemRepository.findAll();
-        Item firstItem = itemList.getFirst();
+        Item savedItem = itemRepository.save(newItem);
 
         //then
-        assert firstItem.getServer().equals(server);
+        assert savedItem.getServer().equals(server);
     }
 }
