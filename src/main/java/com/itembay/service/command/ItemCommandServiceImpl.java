@@ -2,10 +2,13 @@ package com.itembay.service.command;
 
 import com.itembay.domain.Item;
 import com.itembay.dto.ItemRegisterReqData;
+import com.itembay.dto.ItemUpdateReqData;
+import com.itembay.error.ItemNotFoundException;
 import com.itembay.repository.ItemRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 
@@ -15,12 +18,13 @@ import java.math.BigDecimal;
 @Service
 @Transactional
 @RequiredArgsConstructor
+@CacheConfig(cacheNames = "itemSearchResults")
 public class ItemCommandServiceImpl implements ItemCommandService {
 
     private final ItemRepository itemRepository;
 
     @Override
-    @CacheEvict(value = "itemSearchResults", allEntries = true)
+    @CacheEvict(allEntries = true)
     public Item registerItem(ItemRegisterReqData req) {
 
         if (req.server() == null || req.server().isBlank()) {
@@ -56,5 +60,14 @@ public class ItemCommandServiceImpl implements ItemCommandService {
                 .quantity(req.quantity())
                 .build();
         return itemRepository.save(newItem);
+    }
+
+    @Override
+    @CacheEvict(allEntries = true)
+    public void updateItem(ItemUpdateReqData req) {
+        Item item = itemRepository.findById(req.id())
+                .orElseThrow(() -> new ItemNotFoundException(req.id()));
+
+        item.update(req.server(), req.sellerName(), req.itemType(), req.title(), req.price(), req.quantity());
     }
 }
