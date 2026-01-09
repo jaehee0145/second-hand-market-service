@@ -12,6 +12,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -44,6 +45,12 @@ public class ItemApi {
     public ResponseEntity<Long> updateItem(@Valid @RequestBody ItemUpdateReqData req) {
         Long itemId = itemCommandService.updateItem(req);
         return ResponseEntity.ok(itemId);
+    }
+
+    @DeleteMapping("/api/items/{id}")
+    public ResponseEntity<Long> deleteItem(@PathVariable Long id) {
+        Long deletedItemId = itemCommandService.deleteItem(id);
+        return ResponseEntity.ok(deletedItemId);
     }
 
 }
