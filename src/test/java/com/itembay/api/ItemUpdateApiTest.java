@@ -13,6 +13,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 
@@ -21,10 +22,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@Transactional
 @SpringBootTest
 @AutoConfigureMockMvc
 @DisplayName("아이템 수정 API 테스트")
-public class ItemUpdateApiTest {
+class ItemUpdateApiTest {
 
     @Autowired
     MockMvc mockMvc;
@@ -52,8 +54,7 @@ public class ItemUpdateApiTest {
 
     @Test
     @DisplayName("아이템 수정 성공")
-    public void update_item_succeeded() throws Exception {
-
+    void update_item_succeeded() throws Exception {
         // given
         ItemUpdateReqData req = ItemUpdateReqData.builder()
                 .id(savedItemId)
@@ -76,8 +77,7 @@ public class ItemUpdateApiTest {
 
     @Test
     @DisplayName("아이템 수정 실패 - 유효하지 않은 ID")
-    public void update_item_failed_invalid_id() throws Exception {
-
+    void update_item_failed_invalid_id() throws Exception {
         // given
         Long invalidId = 9999L;
         ItemUpdateReqData req = ItemUpdateReqData.builder()

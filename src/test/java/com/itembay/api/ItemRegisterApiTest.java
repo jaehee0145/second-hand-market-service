@@ -10,6 +10,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 
@@ -17,10 +18,11 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+@Transactional
 @SpringBootTest
 @AutoConfigureMockMvc
 @DisplayName("아이템 등록 API 테스트")
-public class ItemRegisterApiTest {
+class ItemRegisterApiTest {
 
     @Autowired
     MockMvc mockMvc;
@@ -29,9 +31,8 @@ public class ItemRegisterApiTest {
     ObjectMapper objectMapper;
 
     @Test
-    @DisplayName("아이템 등록에 성공한다. - 201 응답")
-    public void register_item() throws Exception {
-
+    @DisplayName("아이템 등록 성공 - 201 응답")
+    void register_item_succeeded() throws Exception {
         // given
         String server = "라엘08";
         String sellerName = "아리";
@@ -49,6 +50,7 @@ public class ItemRegisterApiTest {
                 .quantity(quantity)
                 .build();
 
+        // when and then
         mockMvc.perform(post("/api/items")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
@@ -58,9 +60,8 @@ public class ItemRegisterApiTest {
     }
 
     @Test
-    @DisplayName("아이템 등록에 실패한다. - 가격 오류인 경우 400 응답")
-    public void register_item_failed_price_error() throws Exception {
-
+    @DisplayName("아이템 등록에 실패 - 가격 음수인 경우 400 응답")
+    void register_item_failed_price_negative() throws Exception {
         // given
         String server = "라엘08";
         String sellerName = "아리";
@@ -78,6 +79,7 @@ public class ItemRegisterApiTest {
                 .quantity(quantity)
                 .build();
 
+        // when and then
         mockMvc.perform(post("/api/items")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
@@ -87,9 +89,8 @@ public class ItemRegisterApiTest {
     }
 
     @Test
-    @DisplayName("아이템 등록에 실패한다. - 서버 이름 누락인 경우 400 응답")
-    public void register_item_failed_server_name_missing() throws Exception {
-
+    @DisplayName("아이템 등록 실패 - 서버 이름 누락인 경우 400 응답")
+    void register_item_failed_server_name_missing() throws Exception {
         // given
         String sellerName = "아리";
         ItemType itemType = ItemType.GAME_MONEY;
@@ -105,6 +106,7 @@ public class ItemRegisterApiTest {
                 .quantity(quantity)
                 .build();
 
+        // when and then
         mockMvc.perform(post("/api/items")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
