@@ -80,4 +80,11 @@ public class ItemCommandServiceImpl implements ItemCommandService {
         itemRepository.deleteById(itemId);
         return itemId;
     }
+
+    @Override
+    public Long decreaseQuantity(Long itemId, int minusQuantity) {
+        Item item = itemRepository.findByIdWithLock(itemId)
+                .orElseThrow(() -> new ItemNotFoundException(itemId));
+        return item.decreaseQuantity(minusQuantity);
+    }
 }

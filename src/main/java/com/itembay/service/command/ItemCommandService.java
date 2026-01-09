@@ -28,4 +28,12 @@ public interface ItemCommandService {
      */
     Long deleteItem(Long itemId);
 
+    /**
+     * 아이템 수량 차감
+     * @param itemId 아이템 ID
+     * @param minusQuantity 차감할 수량
+     * @return itemId 아이템 ID
+     */
+    Long decreaseQuantity(Long itemId, int minusQuantity);
+
 }
