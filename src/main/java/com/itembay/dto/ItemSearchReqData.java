@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 
 @Builder
 public record ItemSearchReqData(
+        String title,
         String server,
         ItemType itemType,
         BigDecimal minPrice,

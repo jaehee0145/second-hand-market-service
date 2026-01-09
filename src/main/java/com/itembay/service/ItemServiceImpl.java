@@ -69,20 +69,20 @@ public class ItemServiceImpl implements ItemService {
         Pageable pageable = PageRequest.of(req.page(), req.size());
 
         JPAQuery<Item> contentQuery = jpaQueryfactory.selectFrom(ITEM)
-                .where(ITEM.server.contains(req.server())
+                .where(ITEM.title.contains(req.title())
                         .and(ITEM.price.between(req.minPrice(), req.maxPrice()))
-                        .and(ITEM.itemType.eq(req.itemType())
-                        ))
+                        .and(ITEM.itemType.eq(req.itemType()))
+                        .and(ITEM.server.eq(req.server())))
                 .limit(req.size()).offset(pageable.getOffset());
         // TODO. Jaehee Park 26.01.09 가격, 생성일 순 정렬
 
         JPAQuery<Long> countQuery = jpaQueryfactory
                 .select(ITEM.count())
                 .from(ITEM)
-                .where(ITEM.server.contains(req.server())
+                .where(ITEM.title.contains(req.title())
                         .and(ITEM.price.between(req.minPrice(), req.maxPrice()))
                         .and(ITEM.itemType.eq(req.itemType()))
-                );
+                        .and(ITEM.server.eq(req.server())));
 
         return PageableExecutionUtils.getPage(contentQuery.fetch(), pageable, countQuery::fetchOne);
     }
