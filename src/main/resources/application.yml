@@ -9,3 +9,4 @@ spring:
     driver-class-name: org.h2.Driver
     username: sa
     password:
+  jpa.defer-datasource-initialization: true
