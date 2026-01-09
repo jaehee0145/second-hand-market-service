@@ -20,4 +20,11 @@ public interface ItemCommandService {
      */
     Long updateItem(ItemUpdateReqData itemUpdateReqData);
 
+    /**
+     * 아이템 삭제
+     * @param itemId 아이템 ID
+     * @return itemId 아이템 ID
+     */
+    Long deleteItem(Long itemId);
+
 }

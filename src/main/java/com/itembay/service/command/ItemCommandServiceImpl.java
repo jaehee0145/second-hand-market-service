@@ -71,4 +71,13 @@ public class ItemCommandServiceImpl implements ItemCommandService {
         item.update(req.server(), req.sellerName(), req.itemType(), req.title(), req.price(), req.quantity());
         return item.getId();
     }
+
+    @Override
+    public Long deleteItem(Long itemId) {
+        itemRepository.findById(itemId)
+                .orElseThrow(() -> new ItemNotFoundException(itemId));
+
+        itemRepository.deleteById(itemId);
+        return itemId;
+    }
 }
