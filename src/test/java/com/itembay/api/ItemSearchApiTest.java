@@ -39,7 +39,7 @@ class ItemSearchApiTest {
         // 테스트용 데이터 준비 (1000~10000원 사이 10개 데이터 생성)
         for (int i = 1; i <= 10; i++) {
             itemRepository.save(Item.builder()
-                    .server("라엘")
+                    .server("라엘api")
                     .sellerName("판매자" + i)
                     .itemType(ItemType.GAME_MONEY)
                     .title("골드 아이템 " + i)
@@ -54,7 +54,7 @@ class ItemSearchApiTest {
     void search_items_succeeded() throws Exception {
         // given
         // '골드'가 포함된 상품명, 가격 10000원 ~ 60000원 사이 검색 (데이터 상 6개 해당)
-        String server = "라엘";
+        String server = "라엘api";
         String title = "골드";
         String minPrice = "10000";
         String maxPrice = "60000";
@@ -84,7 +84,7 @@ class ItemSearchApiTest {
     @DisplayName("아이템 조회 실패 - 검색 조건이 누락된 경우 400 응답")
     void search_items_failed_missing_field() throws Exception {
         // given
-        String server = "라엘";
+        String server = "라엘api";
         String minPrice = "10000";
         String maxPrice = "60000";
 
