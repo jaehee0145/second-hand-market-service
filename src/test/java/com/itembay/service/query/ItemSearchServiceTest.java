@@ -44,7 +44,7 @@ public class ItemSearchServiceTest {
     }
 
     @Test
-    @DisplayName("가격 범위로 검색 시 페이징 결과가 올바르게 반환된다.")
+    @DisplayName("아이템 조회 성공 - 조건 필터링 및 페이지 응답 검증")
     void search_item_with_filter_and_paging() {
         // given
         // 1000원 ~ 5000원 사이의 아이템을 검색 (데이터 상 5개가 해당됨)
