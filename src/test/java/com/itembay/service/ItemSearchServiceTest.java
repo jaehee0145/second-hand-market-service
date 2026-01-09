@@ -1,0 +1,67 @@
+package com.itembay.service;
+
+import com.itembay.domain.Item;
+import com.itembay.domain.enums.ItemType;
+import com.itembay.dto.ItemSearchReqData;
+import com.itembay.repository.ItemRepository;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+
+import java.math.BigDecimal;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+@SpringBootTest
+@DisplayName("아이템 조회 테스트")
+public class ItemSearchServiceTest {
+
+    @Autowired
+    ItemService itemService;
+
+    @Autowired
+    ItemRepository itemRepository;
+
+    @BeforeEach
+    void init() {
+        // 테스트용 데이터 준비 (서버: 라엘, 가격: 1000~10000원 사이 10개 데이터 생성)
+        for (int i = 1; i <= 10; i++) {
+            itemRepository.save(Item.builder()
+                    .server("라엘")
+                    .sellerName("판매자" + i)
+                    .itemType(ItemType.GAME_MONEY)
+                    .title("골드 아이템 판매합니다 " + i)
+                    .price(new BigDecimal(1000 * i))
+                    .quantity(100)
+                    .build());
+        }
+    }
+
+    @Test
+    @DisplayName("가격 범위로 검색 시 페이징 결과가 올바르게 반환된다.")
+    void search_item_with_filter_and_paging() {
+
+        // given
+        // 1000원 ~ 5000원 사이의 아이템을 검색 (데이터 상 5개가 해당됨)
+        ItemSearchReqData req = ItemSearchReqData.builder()
+                .title("골드")
+                .server("라엘")
+                .itemType(ItemType.GAME_MONEY)
+                .minPrice(new BigDecimal("1000"))
+                .maxPrice(new BigDecimal("5000"))
+                .page(0) // 첫 번째 페이지
+                .size(3) // 한 페이지에 3개씩
+                .build();
+
+        // when
+        Page<Item> result = itemService.searchItem(req);
+
+        // then
+        assertThat(result.getTotalElements()).isEqualTo(5); // 전체 조건 일치 개수는 5개
+        assertThat(result.getContent().size()).isEqualTo(3); // 현재 페이지 데이터는 3개
+        assertThat(result.getTotalPages()).isEqualTo(2);    // 3개씩 2페이지 존재
+    }
+}
