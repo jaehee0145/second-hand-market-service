@@ -25,7 +25,6 @@ public class ItemApi {
     @PostMapping("/api/items")
     public ResponseEntity<ItemResponse> registerItem(@Valid @RequestBody ItemRegisterReqData req) {
         Item newItem = itemService.registerItem(req);
-        // TODO. Jaehee Park 26.01.09 엔티티 대신 DTO 반환하도록 수정 예정
         ItemResponse response = ItemResponse.from(newItem);
         return ResponseEntity.status(201).body(response);
     }
