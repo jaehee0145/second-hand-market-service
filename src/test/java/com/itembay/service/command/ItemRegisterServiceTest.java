@@ -1,10 +1,9 @@
-package com.itembay.service;
+package com.itembay.service.command;
 
 import com.itembay.domain.Item;
 import com.itembay.domain.enums.ItemType;
 import com.itembay.dto.ItemRegisterReqData;
 import com.itembay.repository.ItemRepository;
-import com.itembay.service.command.ItemCommandService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

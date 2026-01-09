@@ -1,57 +1,52 @@
-package com.itembay.service;
+package com.itembay.service.query;
 
 import com.itembay.domain.Item;
 import com.itembay.domain.enums.ItemSortType;
 import com.itembay.domain.enums.ItemType;
 import com.itembay.dto.ItemSearchReqData;
 import com.itembay.repository.ItemRepository;
-import com.itembay.service.query.ItemQueryService;
-import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.cache.Cache;
-import org.springframework.cache.CacheManager;
 import org.springframework.data.domain.Page;
 
 import java.math.BigDecimal;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Transactional
 @SpringBootTest
-public class ItemCacheTest {
-
-    @Autowired
-    ItemRepository itemRepository;
+@DisplayName("아이템 조회 테스트")
+public class ItemSearchServiceTest {
 
     @Autowired
     ItemQueryService itemQueryService;
 
     @Autowired
-    CacheManager cacheManager;
+    ItemRepository itemRepository;
 
     @BeforeEach
-    void setUp() {
-        // 테스트용 데이터 준비 (1000~10000원 사이 10개 데이터 생성)
+    void init() {
+        // 테스트용 데이터 준비 (서버: 라엘, 가격: 1000~10000원 사이 10개 데이터 생성)
         for (int i = 1; i <= 10; i++) {
             itemRepository.save(Item.builder()
                     .server("라엘")
                     .sellerName("판매자" + i)
                     .itemType(ItemType.GAME_MONEY)
-                    .title("골드 아이템 " + i)
-                    .price(new BigDecimal(10000 * i))
-                    .quantity(1000)
+                    .title("골드 아이템 판매합니다 " + i)
+                    .price(new BigDecimal(1000 * i))
+                    .quantity(100)
                     .build());
         }
     }
 
     @Test
-    @DisplayName("동일한 검색 조건으로 조회했을때 두번째 요청은 캐싱된 데이터를 리턴")
-    void item_search_cache_test() {
+    @DisplayName("가격 범위로 검색 시 페이징 결과가 올바르게 반환된다.")
+    void search_item_with_filter_and_paging() {
+
         // given
+        // 1000원 ~ 5000원 사이의 아이템을 검색 (데이터 상 5개가 해당됨)
         ItemSearchReqData req = ItemSearchReqData.builder()
                 .title("골드")
                 .server("라엘")
@@ -64,19 +59,12 @@ public class ItemCacheTest {
                 .build();
 
         // when
-        System.out.println("== 첫번째 호출 (DB 조회) ==");
-        Page<Item> firstResult = itemQueryService.searchItem(req);
-
-        System.out.println("== 두번째 호출 (캐시 사용) ==");
-        Page<Item> secondResult = itemQueryService.searchItem(req);
+        Page<Item> result = itemQueryService.searchItem(req);
 
         // then
-        // 두 결과의 내용이 동일해야 함
-        assertThat(firstResult.getContent().size()).isEqualTo(secondResult.getContent().size());
-
-        // 캐시에 데이터가 저장되어 있는지 확인
-        Cache cache = cacheManager.getCache("itemSearchResults");
-        assertThat(cache).isNotNull();
-        assertThat(cache.get(req.hashCode())).isNotNull();
+        assertThat(result.getTotalElements()).isEqualTo(5); // 전체 조건 일치 개수는 5개
+        assertThat(result.getContent().size()).isEqualTo(3); // 현재 페이지 데이터는 3개
+        assertThat(result.getTotalPages()).isEqualTo(2);    // 3개씩 2페이지 존재
+        assertThat(result.getContent().getFirst().getPrice()).isEqualByComparingTo("5000"); // 가격 내림차순 확인
     }
 }
