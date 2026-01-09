@@ -91,7 +91,7 @@ class ItemUpdateApiTest {
                 .build();
 
         // when and then
-        mockMvc.perform(put("/api/items/{itemId}", savedItemId)
+        mockMvc.perform(put("/api/items/{itemId}", invalidId)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(req)))
                 .andExpect(status().isNotFound())
