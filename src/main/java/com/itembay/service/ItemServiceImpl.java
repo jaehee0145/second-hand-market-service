@@ -11,6 +11,7 @@ import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 
+@Slf4j
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -68,6 +70,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public Page<Item> searchItem(ItemSearchReqData req) {
+        log.info("ItemSearchReqData : {}", req);
         Pageable pageable = PageRequest.of(req.page(), req.size());
 
         JPAQuery<Item> contentQuery = jpaQueryfactory.selectFrom(ITEM)
