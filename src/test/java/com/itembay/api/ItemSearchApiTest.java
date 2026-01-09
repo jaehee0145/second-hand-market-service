@@ -50,7 +50,7 @@ public class ItemSearchApiTest {
     }
 
     @Test
-    @DisplayName("아이템 조회 API - 조건 필터링 및 페이징 응답 검증")
+    @DisplayName("아이템 조회 - 조건 필터링 및 페이징 응답 검증")
     void search_items_succeeded() throws Exception {
         // given
         // '골드'가 포함된 상품명, 가격 10000원 ~ 60000원 사이 검색 (데이터 상 6개 해당)
@@ -82,7 +82,7 @@ public class ItemSearchApiTest {
     }
 
     @Test
-    @DisplayName("아이템 조회 API - 검색 조건이 누락된 경우 400")
+    @DisplayName("아이템 조회 - 검색 조건이 누락된 경우 400")
     void search_items_missing_field() throws Exception {
 
         // given
