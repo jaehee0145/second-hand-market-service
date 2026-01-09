@@ -46,7 +46,7 @@ curl -X PUT "http://localhost:8080/api/items/1" \
 curl -X DELETE "http://localhost:8080/api/items/2" \
      -H "accept: application/json"           
 ```
-![curl 실행 결과]("https://github.com/user-attachments/assets/06ba4049-2c09-4459-bd6d-6c6732d0d596")
+![실행 결과](https://github.com/user-attachments/assets/06ba4049-2c09-4459-bd6d-6c6732d0d596)
 
 ### 기술 스택
 - Java 17
