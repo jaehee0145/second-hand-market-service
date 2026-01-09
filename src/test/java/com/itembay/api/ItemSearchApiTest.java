@@ -105,4 +105,31 @@ public class ItemSearchApiTest {
                 .andExpect(content().string("상품명은 필수입니다."))
                 .andDo(print());
     }
+
+    @Test
+    @DisplayName("아이템 조회- 빈 결과")
+    void search_items_empty_list() throws Exception {
+
+        // given
+        String server = "라엘999";
+        String title = "골드";
+        String minPrice = "10000";
+        String maxPrice = "60000";
+
+        // when and then
+        mockMvc.perform(get("/api/items")
+                        .param("server", server)
+                        .param("title", title)
+                        .param("itemType", ItemType.GAME_MONEY.name())
+                        .param("itemSortType", ItemSortType.PRICE_ASC.name())
+                        .param("minPrice", minPrice)
+                        .param("maxPrice", maxPrice)
+                        .param("page", "1")
+                        .param("size", "5")
+                        .param("sortType", "PRICE_ASC") // 정렬 조건
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.content.length()").value(0))
+                .andDo(print());
+    }
 }
