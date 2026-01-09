@@ -19,8 +19,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@DisplayName("Item API Test")
-public class ItemApiTest {
+@DisplayName("아이템 등록 API 테스트")
+public class ItemRegisterApiTest {
 
     @Autowired
     MockMvc mockMvc;
