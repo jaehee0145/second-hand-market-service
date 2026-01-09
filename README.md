@@ -20,10 +20,10 @@ Item
 
 기능 요구사항
 A. 상품 목록 조회 API (GET /api/items)
-- [ ] 페이지네이션(page, size)
-- [ ] 검색 기능 (상품명 키워드 검색) (comment : 부분 일치?)
-- [ ] 필터링 1개 이상 (itemType, server, minPrice ~ maxPrice)
-- [ ] 정렬 (createdAt, price)
+- [x] 페이지네이션(page, size)
+- [x] 검색 기능 (상품명 키워드 검색) **(검색 키워드를 포함하는 상품명이 있으면 조회되도록 구현 - contains() 사용)**
+- [x] 필터링 1개 이상 (itemType, server, minPrice ~ maxPrice) **서버명은 일치 조건으로 조회되도록 구현**
+- [x] 정렬 (createdAt, price)
 - [ ] 로딩/에러/빈 경과에 대한 응답
 
 응답 예시
