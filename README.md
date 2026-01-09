@@ -46,7 +46,7 @@ curl -X PUT "http://localhost:8080/api/items/1" \
 curl -X DELETE "http://localhost:8080/api/items/2" \
      -H "accept: application/json"           
 ```
-![curl 실행 결과]("https://github.com/user-attachments/assets/5b814edc-fe89-4481-9738-fd747cd76ff8" )
+![curl 실행 결과]("https://github.com/user-attachments/assets/06ba4049-2c09-4459-bd6d-6c6732d0d596" )
 
 ### 기술 스택
 - Java 17
@@ -78,7 +78,8 @@ C. 테스트코드
 - [x] 단위테스트 또는 통합
 - [x] 상품 등록 API 테스트 (성공/실패 케이스)
 - [x] 상품 목록 조회 API 테스트 (검색 / 필터/ 페이징)
-- [x] `./gradlew test` or `./mvnw test` 로 실행
+- [x] `./gradlew test` or `./mvnw test` 로 실행  
+
 ![테스트코드 실행 결과](https://github.com/user-attachments/assets/4bfde03d-1af5-4529-a15a-241daa7aeeb2)
 
 D. 선택 구현
