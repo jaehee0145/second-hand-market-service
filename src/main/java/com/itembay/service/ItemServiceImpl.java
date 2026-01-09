@@ -14,6 +14,8 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -34,6 +36,7 @@ public class ItemServiceImpl implements ItemService {
     private static final QItem ITEM = QItem.item;
 
     @Override
+    @CacheEvict(value = "itemSearchResults", allEntries = true)
     public Item registerItem(ItemRegisterReqData req) {
 
         if (req.server() == null || req.server().isBlank()) {
@@ -71,6 +74,11 @@ public class ItemServiceImpl implements ItemService {
         return itemRepository.save(newItem);
     }
 
+    @Cacheable(
+            value = "itemSearchResults",
+            key = "#req.hashCode()",
+            condition = "#req.page() < 5"
+    )
     @Override
     public Page<Item> searchItem(ItemSearchReqData req) {
         log.info("ItemSearchReqData : {}", req);
