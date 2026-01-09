@@ -60,7 +60,7 @@ class ItemRegisterApiTest {
     }
 
     @Test
-    @DisplayName("아이템 등록에 실패 - 가격 음수인 경우 400 응답")
+    @DisplayName("아이템 등록 실패 - 가격 음수인 경우 400 응답")
     void register_item_failed_price_negative() throws Exception {
         // given
         String server = "라엘08";

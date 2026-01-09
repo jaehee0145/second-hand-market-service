@@ -17,6 +17,7 @@ import java.util.concurrent.CompletionException;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
+@DisplayName("아이템 수정 동시성 테스트")
 public class ItemQuantityServiceTest {
 
     @Autowired

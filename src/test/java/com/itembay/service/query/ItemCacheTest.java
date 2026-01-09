@@ -21,6 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @Transactional
 @SpringBootTest
+@DisplayName("아이템 조회 Cache 테스트")
 class ItemCacheTest {
 
     @Autowired
