@@ -8,6 +8,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -39,4 +40,15 @@ public class Item extends BaseEntity {
 
     private int quantity;
 
+    @Builder
+    public Item(Long id, String server, String sellerName, ItemType itemType, String title, BigDecimal price, int quantity) {
+        super();
+        this.id = id;
+        this.server = server;
+        this.sellerName = sellerName;
+        this.itemType = itemType;
+        this.title = title;
+        this.price = price;
+        this.quantity = quantity;
+    }
 }
