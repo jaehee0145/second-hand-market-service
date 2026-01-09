@@ -50,8 +50,8 @@ public class ItemSearchApiTest {
     }
 
     @Test
-    @DisplayName("아이템 검색 API - 조건 필터링 및 페이징 응답 검증")
-    void search_items_integration_test() throws Exception {
+    @DisplayName("아이템 조회 API - 조건 필터링 및 페이징 응답 검증")
+    void search_items_succeeded() throws Exception {
         // given
         // '골드'가 포함된 상품명, 가격 10000원 ~ 60000원 사이 검색 (데이터 상 6개 해당)
         String server = "라엘";
@@ -64,7 +64,7 @@ public class ItemSearchApiTest {
                         .param("server", server)
                         .param("title", title)
                         .param("itemType", ItemType.GAME_MONEY.name())
-                        .param("itemSortType", "PRICE_ASC")
+                        .param("itemSortType", ItemSortType.PRICE_ASC.name())
                         .param("minPrice", minPrice)
                         .param("maxPrice", maxPrice)
                         .param("page", "1")
