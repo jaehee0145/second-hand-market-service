@@ -64,10 +64,11 @@ public class ItemCommandServiceImpl implements ItemCommandService {
 
     @Override
     @CacheEvict(allEntries = true)
-    public void updateItem(ItemUpdateReqData req) {
+    public Long updateItem(ItemUpdateReqData req) {
         Item item = itemRepository.findById(req.id())
                 .orElseThrow(() -> new ItemNotFoundException(req.id()));
 
         item.update(req.server(), req.sellerName(), req.itemType(), req.title(), req.price(), req.quantity());
+        return item.getId();
     }
 }

@@ -16,7 +16,8 @@ public interface ItemCommandService {
     /**
      * 아이템 수정
      * @param itemUpdateReqData 아이템 수정 요청 데이터
+     * @return Item ID
      */
-    void updateItem(ItemUpdateReqData itemUpdateReqData);
+    Long updateItem(ItemUpdateReqData itemUpdateReqData);
 
 }
