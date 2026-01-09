@@ -1,6 +1,7 @@
 package com.itembay.service;
 
 import com.itembay.domain.Item;
+import com.itembay.domain.enums.ItemSortType;
 import com.itembay.domain.enums.ItemType;
 import com.itembay.dto.ItemSearchReqData;
 import com.itembay.repository.ItemRepository;
@@ -54,6 +55,7 @@ public class ItemSearchServiceTest {
                 .maxPrice(new BigDecimal("5000"))
                 .page(0) // 첫 번째 페이지
                 .size(3) // 한 페이지에 3개씩
+                .itemSortType(ItemSortType.PRICE_DESC)
                 .build();
 
         // when
@@ -63,5 +65,6 @@ public class ItemSearchServiceTest {
         assertThat(result.getTotalElements()).isEqualTo(5); // 전체 조건 일치 개수는 5개
         assertThat(result.getContent().size()).isEqualTo(3); // 현재 페이지 데이터는 3개
         assertThat(result.getTotalPages()).isEqualTo(2);    // 3개씩 2페이지 존재
+        assertThat(result.getContent().getFirst().getPrice()).isEqualByComparingTo("5000"); // 가격 내림차순 확인
     }
 }
