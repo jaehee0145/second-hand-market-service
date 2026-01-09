@@ -4,6 +4,7 @@ import com.itembay.domain.Item;
 import com.itembay.dto.ItemRegisterReqData;
 import com.itembay.dto.ItemResponse;
 import com.itembay.dto.ItemSearchReqData;
+import com.itembay.dto.ItemUpdateReqData;
 import com.itembay.dto.PageResponse;
 import com.itembay.service.command.ItemCommandService;
 import com.itembay.service.query.ItemQueryService;
@@ -14,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -36,6 +38,12 @@ public class ItemApi {
         Page<Item> itemPage = itemQueryService.searchItem(req);
         Page<ItemResponse> responsePage = itemPage.map(ItemResponse::from);
         return ResponseEntity.ok(PageResponse.of(responsePage));
+    }
+
+    @PutMapping("/api/items/{id}")
+    public ResponseEntity<Long> updateItem(@Valid @RequestBody ItemUpdateReqData req) {
+        Long itemId = itemCommandService.updateItem(req);
+        return ResponseEntity.ok(itemId);
     }
 
 }
