@@ -1,8 +1,5 @@
 package com.itembay.domain.enums;
 
-/**
- * Created by Jaehee Park on 2026.01.09
- */
 public enum ItemType {
     GAME_MONEY("enum_game_money", "게임 머니"),
     ITEM("enum_item", "아이템"),
