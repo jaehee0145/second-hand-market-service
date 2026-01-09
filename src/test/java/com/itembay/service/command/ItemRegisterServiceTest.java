@@ -8,15 +8,17 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+@Transactional
 @SpringBootTest
-@DisplayName("아이템 등록 테스트")
-public class ItemRegisterServiceTest {
+@DisplayName("아이템 등록 Service 테스트")
+class ItemRegisterServiceTest {
 
     @Autowired
     ItemCommandService itemCommandService;
@@ -25,9 +27,8 @@ public class ItemRegisterServiceTest {
     ItemRepository itemRepository;
 
     @Test
-    @DisplayName("아이템 등록에 성공한다.")
-    public void register_item() {
-
+    @DisplayName("아이템 등록 성공")
+    void register_item() {
         // given
         String server = "라엘08";
         String sellerName = "아리";
@@ -44,7 +45,6 @@ public class ItemRegisterServiceTest {
                 .price(price)
                 .quantity(quantity)
                 .build();
-
         itemCommandService.registerItem(newItem);
 
         // when
@@ -56,9 +56,8 @@ public class ItemRegisterServiceTest {
     }
 
     @Test
-    @DisplayName("아이템 등록에 실패한다. - 서버 이름 누락")
-    public void register_item_failed_server_name_missing() {
-
+    @DisplayName("아이템 등록 실패 - 서버 이름 누락")
+    void register_item_failed_server_name_missing() {
         // given
         String sellerName = "아리";
         ItemType itemType = ItemType.GAME_MONEY;
@@ -81,9 +80,8 @@ public class ItemRegisterServiceTest {
     }
 
     @Test
-    @DisplayName("아이템 등록에 실패한다. - 가격 오류")
-    public void register_item_failed_price_error() {
-
+    @DisplayName("아이템 등록 실패 - 가격 음수")
+    void register_item_failed_price_negative() {
         // given
         String server = "라엘08";
         String sellerName = "아리";

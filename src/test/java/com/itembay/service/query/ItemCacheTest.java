@@ -21,7 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @Transactional
 @SpringBootTest
-public class ItemCacheTest {
+class ItemCacheTest {
 
     @Autowired
     ItemRepository itemRepository;
@@ -57,8 +57,8 @@ public class ItemCacheTest {
                 .itemType(ItemType.GAME_MONEY)
                 .minPrice(new BigDecimal("1000"))
                 .maxPrice(new BigDecimal("5000"))
-                .page(0) // 첫 번째 페이지
-                .size(3) // 한 페이지에 3개씩
+                .page(0)
+                .size(3)
                 .itemSortType(ItemSortType.PRICE_DESC)
                 .build();
 
@@ -70,7 +70,6 @@ public class ItemCacheTest {
         Page<Item> secondResult = itemQueryService.searchItem(req);
 
         // then
-        // 두 결과의 내용이 동일해야 함
         assertThat(firstResult.getContent().size()).isEqualTo(secondResult.getContent().size());
 
         // 캐시에 데이터가 저장되어 있는지 확인

@@ -6,21 +6,22 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
 
+@Transactional
 @SpringBootTest
-@DisplayName("Item Repository Test")
-public class ItemRepositoryTest {
+@DisplayName("아이템 Repository 테스트")
+class ItemRepositoryTest {
 
     @Autowired
     ItemRepository itemRepository;
 
     @Test
-    @DisplayName("아이템 등록에 성공한다.")
-    public void register_item() {
-
+    @DisplayName("아이템 등록 성공")
+    void register_item() {
         // given
         String server = "라엘08";
         String sellerName = "아리";

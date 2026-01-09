@@ -19,8 +19,8 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @Transactional
 @SpringBootTest
-@DisplayName("아이템 수정 테스트")
-public class ItemUpdateServiceTest {
+@DisplayName("아이템 수정 Service 테스트")
+class ItemUpdateServiceTest {
 
     @Autowired
     ItemCommandService itemCommandService;
@@ -44,7 +44,7 @@ public class ItemUpdateServiceTest {
     }
 
     @Test
-    @DisplayName("아이템 정보 수정 성공")
+    @DisplayName("아이템 수정 성공")
     void update_item_succeeded() {
         // given
         ItemUpdateReqData req = ItemUpdateReqData.builder()
@@ -70,7 +70,7 @@ public class ItemUpdateServiceTest {
     }
 
     @Test
-    @DisplayName("아이템 정보 수정 실패 - 존재하지 않는 ID")
+    @DisplayName("아이템 수정 실패 - 존재하지 않는 ID")
     void update_item_failed_invalid_id() {
         // given
         Long invalidId = 9999L;
