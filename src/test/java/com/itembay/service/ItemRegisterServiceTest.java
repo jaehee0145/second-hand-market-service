@@ -15,8 +15,8 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @SpringBootTest
-@DisplayName("Item Service Test")
-public class ItemServiceTest {
+@DisplayName("아이템 등록 테스트")
+public class ItemRegisterServiceTest {
 
     @Autowired
     ItemService itemService;
