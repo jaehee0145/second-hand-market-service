@@ -1,8 +1,10 @@
 package com.itembay.api;
 
 import com.itembay.domain.Item;
+import com.itembay.domain.enums.ItemSortType;
 import com.itembay.domain.enums.ItemType;
 import com.itembay.repository.ItemRepository;
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,9 +18,11 @@ import java.math.BigDecimal;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@Transactional
 @SpringBootTest
 @AutoConfigureMockMvc
 @DisplayName("아이템 조회 API 테스트")
@@ -77,4 +81,28 @@ public class ItemSearchApiTest {
                 .andDo(print());
     }
 
+    @Test
+    @DisplayName("아이템 조회 API - 검색 조건이 누락된 경우 400")
+    void search_items_missing_field() throws Exception {
+
+        // given
+        String server = "라엘";
+        String minPrice = "10000";
+        String maxPrice = "60000";
+
+        // when and then
+        mockMvc.perform(get("/api/items")
+                        .param("server", server)
+                        .param("itemType", ItemType.GAME_MONEY.name())
+                        .param("itemSortType", ItemSortType.PRICE_ASC.name())
+                        .param("minPrice", minPrice)
+                        .param("maxPrice", maxPrice)
+                        .param("page", "1")
+                        .param("size", "5")
+                        .param("sortType", "PRICE_ASC") // 정렬 조건
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andExpect(content().string("상품명은 필수입니다."))
+                .andDo(print());
+    }
 }
