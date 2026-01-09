@@ -39,14 +39,14 @@ public class ItemQueryServiceImpl implements ItemQueryService {
     @Override
     public Page<Item> searchItem(ItemSearchReqData req) {
         log.info("ItemSearchReqData : {}", req);
-        Pageable pageable = PageRequest.of(req.page(), req.size());
+        Pageable pageable = PageRequest.of(req.getPage(), req.getSize());
 
         JPAQuery<Item> contentQuery = jpaQueryfactory.selectFrom(ITEM)
                 .where(titleContains(req.title()),
                         priceBetween(req.minPrice(), req.maxPrice()),
                         itemTypeEq(req.itemType()),
                         serverEq(req.server()))
-                .limit(req.size()).offset(pageable.getOffset())
+                .limit(req.getSize()).offset(pageable.getOffset())
                 .orderBy(getSortOption(req));
 
         JPAQuery<Long> countQuery = jpaQueryfactory
@@ -81,6 +81,7 @@ public class ItemQueryServiceImpl implements ItemQueryService {
 
     private static OrderSpecifier<?> getSortOption(ItemSearchReqData req) {
         ItemSortType itemSortType = req.itemSortType();
+        if (itemSortType == null) return ITEM.createdAt.desc();
         return switch (itemSortType) {
             case PRICE_ASC -> ITEM.price.asc();
             case PRICE_DESC -> ITEM.price.desc();
