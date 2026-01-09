@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -42,8 +43,8 @@ public class ItemApi {
     }
 
     @PutMapping("/api/items/{id}")
-    public ResponseEntity<Long> updateItem(@Valid @RequestBody ItemUpdateReqData req) {
-        Long itemId = itemCommandService.updateItem(req);
+    public ResponseEntity<Long> updateItem(@PathVariable Long id, @Valid @RequestBody ItemUpdateReqData req) {
+        Long itemId = itemCommandService.updateItem(id, req);
         return ResponseEntity.ok(itemId);
     }
 

@@ -58,7 +58,7 @@ class ItemUpdateServiceTest {
                 .build();
 
         // when
-        itemCommandService.updateItem(req);
+        itemCommandService.updateItem(savedItemId, req);
 
         // then
         Item updatedItem = itemRepository.findById(savedItemId).orElseThrow();
@@ -85,7 +85,7 @@ class ItemUpdateServiceTest {
                 .build();
 
         // when and then
-        assertThatThrownBy(() -> itemCommandService.updateItem(req))
+        assertThatThrownBy(() -> itemCommandService.updateItem(invalidId, req))
                 .isInstanceOf(ItemNotFoundException.class);
     }
 }
