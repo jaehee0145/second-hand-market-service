@@ -2,9 +2,11 @@ package com.itembay.service;
 
 import com.itembay.domain.Item;
 import com.itembay.domain.QItem;
+import com.itembay.domain.enums.ItemSortType;
 import com.itembay.dto.ItemRegisterReqData;
 import com.itembay.dto.ItemSearchReqData;
 import com.itembay.repository.ItemRepository;
+import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.transaction.Transactional;
@@ -73,8 +75,8 @@ public class ItemServiceImpl implements ItemService {
                         .and(ITEM.price.between(req.minPrice(), req.maxPrice()))
                         .and(ITEM.itemType.eq(req.itemType()))
                         .and(ITEM.server.eq(req.server())))
-                .limit(req.size()).offset(pageable.getOffset());
-        // TODO. Jaehee Park 26.01.09 가격, 생성일 순 정렬
+                .limit(req.size()).offset(pageable.getOffset())
+                .orderBy(getSortOption(req));
 
         JPAQuery<Long> countQuery = jpaQueryfactory
                 .select(ITEM.count())
@@ -85,5 +87,15 @@ public class ItemServiceImpl implements ItemService {
                         .and(ITEM.server.eq(req.server())));
 
         return PageableExecutionUtils.getPage(contentQuery.fetch(), pageable, countQuery::fetchOne);
+    }
+
+    private static OrderSpecifier<?> getSortOption(ItemSearchReqData req) {
+        ItemSortType itemSortType = req.itemSortType();
+        return switch (itemSortType) {
+            case PRICE_ASC -> ITEM.price.asc();
+            case PRICE_DESC -> ITEM.price.desc();
+            case CREATED_DESC -> ITEM.createdAt.desc();
+            case CREATED_ASC -> ITEM.createdAt.asc();
+        };
     }
 }

@@ -1,5 +1,6 @@
 package com.itembay.dto;
 
+import com.itembay.domain.enums.ItemSortType;
 import com.itembay.domain.enums.ItemType;
 import lombok.Builder;
 
@@ -12,6 +13,7 @@ public record ItemSearchReqData(
         ItemType itemType,
         BigDecimal minPrice,
         BigDecimal maxPrice,
+        ItemSortType itemSortType,
         int page,
         int size
 ) {
