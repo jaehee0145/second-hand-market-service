@@ -51,4 +51,13 @@ public class Item extends BaseEntity {
         this.price = price;
         this.quantity = quantity;
     }
+
+    public void update(String server, String sellerName, ItemType itemType, String title, BigDecimal price, int quantity) {
+        this.server = server;
+        this.sellerName = sellerName;
+        this.itemType = itemType;
+        this.title = title;
+        this.price = price;
+        this.quantity = quantity;
+    }
 }
