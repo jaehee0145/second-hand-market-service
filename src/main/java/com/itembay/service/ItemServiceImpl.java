@@ -3,10 +3,12 @@ package com.itembay.service;
 import com.itembay.domain.Item;
 import com.itembay.domain.QItem;
 import com.itembay.domain.enums.ItemSortType;
+import com.itembay.domain.enums.ItemType;
 import com.itembay.dto.ItemRegisterReqData;
 import com.itembay.dto.ItemSearchReqData;
 import com.itembay.repository.ItemRepository;
 import com.querydsl.core.types.OrderSpecifier;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.transaction.Transactional;
@@ -17,6 +19,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.math.BigDecimal;
 
@@ -74,22 +77,41 @@ public class ItemServiceImpl implements ItemService {
         Pageable pageable = PageRequest.of(req.page(), req.size());
 
         JPAQuery<Item> contentQuery = jpaQueryfactory.selectFrom(ITEM)
-                .where(ITEM.title.contains(req.title())
-                        .and(ITEM.price.between(req.minPrice(), req.maxPrice()))
-                        .and(ITEM.itemType.eq(req.itemType()))
-                        .and(ITEM.server.eq(req.server())))
+                .where(titleContains(req.title()),
+                        priceBetween(req.minPrice(), req.maxPrice()),
+                        itemTypeEq(req.itemType()),
+                        serverEq(req.server()))
                 .limit(req.size()).offset(pageable.getOffset())
                 .orderBy(getSortOption(req));
 
         JPAQuery<Long> countQuery = jpaQueryfactory
                 .select(ITEM.count())
                 .from(ITEM)
-                .where(ITEM.title.contains(req.title())
-                        .and(ITEM.price.between(req.minPrice(), req.maxPrice()))
-                        .and(ITEM.itemType.eq(req.itemType()))
-                        .and(ITEM.server.eq(req.server())));
+                .where(titleContains(req.title()),
+                        priceBetween(req.minPrice(), req.maxPrice()),
+                        itemTypeEq(req.itemType()),
+                        serverEq(req.server()));
 
         return PageableExecutionUtils.getPage(contentQuery.fetch(), pageable, countQuery::fetchOne);
+    }
+
+    private BooleanExpression titleContains(String title) {
+        return StringUtils.hasText(title) ? ITEM.title.contains(title) : null;
+    }
+
+    private BooleanExpression priceBetween(BigDecimal min, BigDecimal max) {
+        if (min == null && max == null) return null;
+        if (min == null) return ITEM.price.loe(max);
+        if (max == null) return ITEM.price.goe(min);
+        return ITEM.price.between(min, max);
+    }
+
+    private BooleanExpression itemTypeEq(ItemType itemType) {
+        return itemType != null ? ITEM.itemType.eq(itemType) : null;
+    }
+
+    private BooleanExpression serverEq(String server) {
+        return StringUtils.hasText(server) ? ITEM.server.eq(server) : null;
     }
 
     private static OrderSpecifier<?> getSortOption(ItemSearchReqData req) {
