@@ -1,5 +1,4 @@
-## itemBay Backend Assignment
-- 게임 아이템 거래 상품 등록/목록 API 구현
+## Second-hand Marketplace
 
 ### 실행 방법
 1. 환경 요구 사항
@@ -15,39 +14,6 @@
 - API 조회: http://localhost:8080/api/items
 - H2 DB 콘솔: http://localhost:8080/h2-console
   - JDBC URL: jdbc:h2:mem:testdb
-
-```bash
-
-# 아이템 등록
-curl -X POST "http://localhost:8080/api/items" \
-     -H "Content-Type: application/json" \
-     -d '{
-           "server": "라엘",
-           "sellerName": "테스터01",
-           "itemType": "ITEM",
-           "title": "집행검",
-           "price": 50000,
-           "quantity": 10
-         }'
-
-# 1번 아이템 수정
-curl -X PUT "http://localhost:8080/api/items/1" \
-     -H "Content-Type: application/json" \
-     -d '{
-           "server": "데포",
-           "sellerName": "수정판매자",
-           "itemType": "ITEM",
-           "title": "강화된 집행검",
-           "price": 99900,
-           "quantity": 7
-         }'
-
-# 2번 아이템 삭제
-curl -X DELETE "http://localhost:8080/api/items/2" \
-     -H "accept: application/json"           
-```
-- curl 실행결과
-![실행 결과](https://github.com/user-attachments/assets/06ba4049-2c09-4459-bd6d-6c6732d0d596)
 
 ### 기술 스택
 - Java 17
