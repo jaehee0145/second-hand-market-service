@@ -3,7 +3,7 @@ package com.itembay.service.query;
 import com.itembay.domain.Item;
 import com.itembay.domain.QItem;
 import com.itembay.domain.enums.ItemSortType;
-import com.itembay.domain.enums.ItemType;
+import com.itembay.domain.enums.Category;
 import com.itembay.dto.ItemSearchReqData;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -44,7 +44,7 @@ public class ItemQueryServiceImpl implements ItemQueryService {
         JPAQuery<Item> contentQuery = jpaQueryfactory.selectFrom(ITEM)
                 .where(titleContains(req.title()),
                         priceBetween(req.minPrice(), req.maxPrice()),
-                        itemTypeEq(req.itemType()))
+                        categoryEq(req.category()))
                 .limit(req.getSize()).offset(pageable.getOffset())
                 .orderBy(getSortOption(req));
 
@@ -53,7 +53,7 @@ public class ItemQueryServiceImpl implements ItemQueryService {
                 .from(ITEM)
                 .where(titleContains(req.title()),
                         priceBetween(req.minPrice(), req.maxPrice()),
-                        itemTypeEq(req.itemType()));
+                        categoryEq(req.category()));
 
         return PageableExecutionUtils.getPage(contentQuery.fetch(), pageable, countQuery::fetchOne);
     }
@@ -69,8 +69,8 @@ public class ItemQueryServiceImpl implements ItemQueryService {
         return ITEM.price.between(min, max);
     }
 
-    private BooleanExpression itemTypeEq(ItemType itemType) {
-        return itemType != null ? ITEM.itemType.eq(itemType) : null;
+    private BooleanExpression categoryEq(Category category) {
+        return category != null ? ITEM.category.eq(category) : null;
     }
 
     private static OrderSpecifier<?> getSortOption(ItemSearchReqData req) {

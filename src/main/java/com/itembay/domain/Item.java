@@ -1,6 +1,6 @@
 package com.itembay.domain;
 
-import com.itembay.domain.enums.ItemType;
+import com.itembay.domain.enums.Category;
 import com.itembay.error.InvalidQuantityException;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -29,7 +29,7 @@ public class Item extends BaseEntity {
     private String sellerName;
 
     @Enumerated(EnumType.STRING)
-    private ItemType itemType;
+    private Category category;
 
     @Column(nullable = false, length = 100)
     private String title;
@@ -42,19 +42,19 @@ public class Item extends BaseEntity {
     private int quantity;
 
     @Builder
-    public Item(Long id, String sellerName, ItemType itemType, String title, BigDecimal price, int quantity) {
+    public Item(Long id, String sellerName, Category category, String title, BigDecimal price, int quantity) {
         super();
         this.id = id;
         this.sellerName = sellerName;
-        this.itemType = itemType;
+        this.category = category;
         this.title = title;
         this.price = price;
         this.quantity = quantity;
     }
 
-    public void update(String sellerName, ItemType itemType, String title, BigDecimal price, int quantity) {
+    public void update(String sellerName, Category category, String title, BigDecimal price, int quantity) {
         this.sellerName = sellerName;
-        this.itemType = itemType;
+        this.category = category;
         this.title = title;
         this.price = price;
         this.quantity = quantity;

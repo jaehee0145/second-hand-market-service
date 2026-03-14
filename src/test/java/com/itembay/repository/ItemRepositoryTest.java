@@ -1,7 +1,7 @@
 package com.itembay.repository;
 
 import com.itembay.domain.Item;
-import com.itembay.domain.enums.ItemType;
+import com.itembay.domain.enums.Category;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 @Transactional
 @SpringBootTest
@@ -24,14 +23,14 @@ class ItemRepositoryTest {
     void register_item() {
         // given
         String sellerName = "아리";
-        ItemType itemType = ItemType.GAME_MONEY;
+        Category category = Category.ELECTRONICS;
         String title = "다야 팝니다 필요하신만큼 신청해주세요";
         BigDecimal price = new BigDecimal(25470);
         int quantity = 3000;
 
         Item newItem = Item.builder()
                 .sellerName(sellerName)
-                .itemType(itemType)
+                .category(category)
                 .title(title)
                 .price(price)
                 .quantity(quantity)

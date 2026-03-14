@@ -1,7 +1,7 @@
 package com.itembay.service.command;
 
 import com.itembay.domain.Item;
-import com.itembay.domain.enums.ItemType;
+import com.itembay.domain.enums.Category;
 import com.itembay.repository.ItemRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -32,7 +32,7 @@ public class ItemQuantityServiceTest {
         // 초기 재고를 10개로 설정
         Item item = itemRepository.save(Item.builder()
                 .sellerName("테스터")
-                .itemType(ItemType.ITEM)
+                .category(Category.FASHION)
                 .title("테스트 아이템")
                 .price(new BigDecimal("10000"))
                 .quantity(10) // 초기값 10

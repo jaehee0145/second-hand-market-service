@@ -2,7 +2,7 @@ package com.itembay.service.query;
 
 import com.itembay.domain.Item;
 import com.itembay.domain.enums.ItemSortType;
-import com.itembay.domain.enums.ItemType;
+import com.itembay.domain.enums.Category;
 import com.itembay.dto.ItemSearchReqData;
 import com.itembay.repository.ItemRepository;
 import jakarta.transaction.Transactional;
@@ -34,7 +34,7 @@ public class ItemSearchServiceTest {
         for (int i = 1; i <= 10; i++) {
             itemRepository.save(Item.builder()
                     .sellerName("판매자" + i)
-                    .itemType(ItemType.GAME_MONEY)
+                    .category(Category.ELECTRONICS)
                     .title("골드 아이템 판매합니다 " + i)
                     .price(new BigDecimal(1000 * i))
                     .quantity(100)
@@ -49,7 +49,7 @@ public class ItemSearchServiceTest {
         // 1000원 ~ 5000원 사이의 아이템을 검색 (데이터 상 5개가 해당됨)
         ItemSearchReqData req = ItemSearchReqData.builder()
                 .title("골드")
-                .itemType(ItemType.GAME_MONEY)
+                .category(Category.ELECTRONICS)
                 .minPrice(new BigDecimal("1000"))
                 .maxPrice(new BigDecimal("5000"))
                 .page(0)

@@ -1,8 +1,8 @@
 package com.itembay.api;
 
 import com.itembay.domain.Item;
+import com.itembay.domain.enums.Category;
 import com.itembay.domain.enums.ItemSortType;
-import com.itembay.domain.enums.ItemType;
 import com.itembay.repository.ItemRepository;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeEach;
@@ -39,7 +39,7 @@ class ItemSearchApiTest {
         for (int i = 1; i <= 10; i++) {
             itemRepository.save(Item.builder()
                     .sellerName("판매자" + i)
-                    .itemType(ItemType.GAME_MONEY)
+                    .category(Category.ELECTRONICS)
                     .title("골드 아이템 " + i)
                     .price(new BigDecimal(10000 * i))
                     .quantity(1000)
@@ -59,7 +59,7 @@ class ItemSearchApiTest {
         // when and then
         mockMvc.perform(get("/api/items")
                         .param("title", title)
-                        .param("itemType", ItemType.GAME_MONEY.name())
+                        .param("category", Category.ELECTRONICS.name())
                         .param("itemSortType", ItemSortType.PRICE_ASC.name())
                         .param("minPrice", minPrice)
                         .param("maxPrice", maxPrice)
@@ -87,7 +87,7 @@ class ItemSearchApiTest {
         // when and then
         mockMvc.perform(get("/api/items")
                         .param("title", title)
-                        .param("itemType", ItemType.GAME_MONEY.name())
+                        .param("category", Category.ELECTRONICS.name())
                         .param("itemSortType", ItemSortType.PRICE_ASC.name())
                         .param("minPrice", minPrice)
                         .param("maxPrice", maxPrice)

@@ -1,7 +1,7 @@
 package com.itembay.service.command;
 
 import com.itembay.domain.Item;
-import com.itembay.domain.enums.ItemType;
+import com.itembay.domain.enums.Category;
 import com.itembay.dto.ItemUpdateReqData;
 import com.itembay.error.ItemNotFoundException;
 import com.itembay.repository.ItemRepository;
@@ -34,7 +34,7 @@ class ItemUpdateServiceTest {
     void setUp() {
         Item item = Item.builder()
                 .sellerName("테스터")
-                .itemType(ItemType.ITEM)
+                .category(Category.FASHION)
                 .title("기존 제목")
                 .price(new BigDecimal("10000"))
                 .quantity(10)
@@ -49,7 +49,7 @@ class ItemUpdateServiceTest {
         ItemUpdateReqData req = ItemUpdateReqData.builder()
                 .id(savedItemId)
                 .sellerName("테스트")
-                .itemType(ItemType.GAME_MONEY)
+                .category(Category.ELECTRONICS)
                 .title("수정된 제목")
                 .price(new BigDecimal("20000"))
                 .quantity(5)
@@ -63,7 +63,7 @@ class ItemUpdateServiceTest {
         assertThat(updatedItem.getTitle()).isEqualTo("수정된 제목");
         assertThat(updatedItem.getPrice()).isEqualByComparingTo("20000");
         assertThat(updatedItem.getQuantity()).isEqualTo(5);
-        assertThat(updatedItem.getItemType()).isEqualTo(ItemType.GAME_MONEY);
+        assertThat(updatedItem.getCategory()).isEqualTo(Category.ELECTRONICS);
     }
 
     @Test
@@ -74,7 +74,7 @@ class ItemUpdateServiceTest {
         ItemUpdateReqData req = ItemUpdateReqData.builder()
                 .id(invalidId)
                 .sellerName("테스트")
-                .itemType(ItemType.GAME_MONEY)
+                .category(Category.ELECTRONICS)
                 .title("수정된 제목")
                 .price(new BigDecimal("20000"))
                 .quantity(5)

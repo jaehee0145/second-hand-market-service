@@ -1,7 +1,7 @@
 package com.itembay.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.itembay.domain.enums.ItemType;
+import com.itembay.domain.enums.Category;
 import com.itembay.dto.ItemRegisterReqData;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -35,14 +35,14 @@ class ItemRegisterApiTest {
     void register_item_succeeded() throws Exception {
         // given
         String sellerName = "아리";
-        ItemType itemType = ItemType.GAME_MONEY;
+        Category category = Category.ELECTRONICS;
         String title = "다야 팝니다 필요하신만큼 신청해주세요";
         BigDecimal price = new BigDecimal(25470);
         int quantity = 3000;
 
         ItemRegisterReqData request = ItemRegisterReqData.builder()
                 .sellerName(sellerName)
-                .itemType(itemType)
+                .category(category)
                 .title(title)
                 .price(price)
                 .quantity(quantity)
@@ -62,14 +62,14 @@ class ItemRegisterApiTest {
     void register_item_failed_price_negative() throws Exception {
         // given
         String sellerName = "아리";
-        ItemType itemType = ItemType.GAME_MONEY;
+        Category category = Category.ELECTRONICS;
         String title = "다야 팝니다 필요하신만큼 신청해주세요";
         BigDecimal price = new BigDecimal(-25470);
         int quantity = 3000;
 
         ItemRegisterReqData request = ItemRegisterReqData.builder()
                 .sellerName(sellerName)
-                .itemType(itemType)
+                .category(category)
                 .title(title)
                 .price(price)
                 .quantity(quantity)

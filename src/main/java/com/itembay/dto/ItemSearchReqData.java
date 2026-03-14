@@ -1,7 +1,7 @@
 package com.itembay.dto;
 
 import com.itembay.domain.enums.ItemSortType;
-import com.itembay.domain.enums.ItemType;
+import com.itembay.domain.enums.Category;
 import lombok.Builder;
 
 import java.math.BigDecimal;
@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 public record ItemSearchReqData(
 
         String title,
-        ItemType itemType,
+        Category category,
         BigDecimal minPrice,
         BigDecimal maxPrice,
         ItemSortType itemSortType,

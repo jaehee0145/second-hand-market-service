@@ -1,7 +1,7 @@
 package com.itembay.service.command;
 
 import com.itembay.domain.Item;
-import com.itembay.domain.enums.ItemType;
+import com.itembay.domain.enums.Category;
 import com.itembay.repository.ItemRepository;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.DisplayName;
@@ -34,7 +34,7 @@ class ItemDeleteServiceTest {
         //given
         Item item = Item.builder()
                 .sellerName("테스터")
-                .itemType(ItemType.ITEM)
+                .category(Category.FASHION)
                 .title("아이템delete")
                 .price(new BigDecimal("10000"))
                 .quantity(10)

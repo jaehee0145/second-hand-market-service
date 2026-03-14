@@ -1,15 +1,15 @@
 package com.itembay.domain.enums;
 
-public enum ItemType {
-    GAME_MONEY("enum_game_money", "게임 머니"),
-    ITEM("enum_item", "아이템"),
-    ACCOUNT("enum_account", "계정"),
+public enum Category {
+    ELECTRONICS("enum_electronics", "전자제품"),
+    FASHION("enum_fashion", "패션"),
+    BOOK("enum_book", "책"),
     ETC("enum_etc", "기타");
 
     private final String key;
     private final String description;
 
-    ItemType(String key, String description) {
+    Category(String key, String description) {
         this.key = key;
         this.description = description;
     }

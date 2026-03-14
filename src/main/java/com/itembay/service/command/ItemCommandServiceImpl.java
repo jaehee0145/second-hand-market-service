@@ -31,7 +31,7 @@ public class ItemCommandServiceImpl implements ItemCommandService {
             throw new IllegalArgumentException("판매자 닉네임은 필수입니다.");
         }
 
-        if (req.itemType() == null) {
+        if (req.category() == null) {
             throw new IllegalArgumentException("상품 종류는 필수입니다.");
         }
 
@@ -49,7 +49,7 @@ public class ItemCommandServiceImpl implements ItemCommandService {
 
         Item newItem = Item.builder()
                 .sellerName(req.sellerName())
-                .itemType(req.itemType())
+                .category(req.category())
                 .title(req.title())
                 .price(req.price())
                 .quantity(req.quantity())
@@ -64,7 +64,7 @@ public class ItemCommandServiceImpl implements ItemCommandService {
         Item item = itemRepository.findByIdWithLock(itemId)
                 .orElseThrow(() -> new ItemNotFoundException(itemId));
 
-        item.update(req.sellerName(), req.itemType(), req.title(), req.price(), req.quantity());
+        item.update(req.sellerName(), req.category(), req.title(), req.price(), req.quantity());
         return item.getId();
     }
 

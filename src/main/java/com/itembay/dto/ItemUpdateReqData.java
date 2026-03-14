@@ -1,6 +1,6 @@
 package com.itembay.dto;
 
-import com.itembay.domain.enums.ItemType;
+import com.itembay.domain.enums.Category;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -17,7 +17,7 @@ public record ItemUpdateReqData(
         String sellerName,
 
         @NotNull(message = "상품 종류는 필수입니다.")
-        ItemType itemType,
+        Category category,
 
         @NotBlank(message = "상품명은 필수입니다.")
         String title,
