@@ -8,9 +8,9 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 @EnableCaching
 @EnableJpaAuditing
 @SpringBootApplication
-public class GameItemServiceApplication {
+public class SecondHandMarketServiceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(GameItemServiceApplication.class, args);
+        SpringApplication.run(SecondHandMarketServiceApplication.class, args);
     }
 }

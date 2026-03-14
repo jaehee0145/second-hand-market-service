@@ -104,7 +104,7 @@ D. 선택 구현
 Item 
 - id 상품 고유 ID : Long
 - sellerName 판매자 닉네임 : String (고려사항 : 한글? 글자수 제한)
-- category 상품 종류 : ENUM(GAME_MONEY, ITEM, ACCOUNT, ETC)
+- category 카테고리 : ENUM(ELECTRONICS, FASHION, BOOK, ETC)
 - title 상품명 : String (고려사항 : 글자수 제한)
 - price 거래가격 : BigDecimal
 - quantity 판매수량 : int 

@@ -16,7 +16,7 @@ public record ItemUpdateReqData(
         @NotBlank(message = "판매자 닉네임은 필수입니다.")
         String sellerName,
 
-        @NotNull(message = "상품 종류는 필수입니다.")
+        @NotNull(message = "카테고리는 필수입니다.")
         Category category,
 
         @NotBlank(message = "상품명은 필수입니다.")
