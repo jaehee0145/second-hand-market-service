@@ -34,7 +34,7 @@ public class Item extends BaseEntity {
     @Column(nullable = false, length = 100)
     private String title;
 
-    @Column(columnDefinition = "DECIMAL(15,6)")
+    @Column(nullable = false, precision = 15, scale = 2)
     private BigDecimal price;
 
     @PositiveOrZero
