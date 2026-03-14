@@ -26,37 +26,14 @@
 - Lombok : 반복 코드 제거해서 도메인 로직 집중도 향상 
 - MockMvc : 실제 서버 구동 없이 단위, 통합 테스트  
 
-### 기능 요구사항 (구현 완료)
-  A. 상품 목록 조회 API (GET /api/items)
-- [x] 페이지네이션(page, size)
-- [x] 검색 기능 (상품명 키워드 검색) **검색 키워드를 포함하는 상품명이 있으면 조회되도록 구현 - contains() 사용**
-- [x] 필터링 1개 이상 (category, minPrice ~ maxPrice) **서버명은 일치 조건으로 조회되도록 구현**
-- [x] 정렬 (createdAt, price)
-- [x] 로딩/에러/빈 경과에 대한 응답
+
+### 주요 기능
+1. 상품 등록 / 조회 / 수정 / 삭제 API 제공
+2. 상품 목록 조회 성능 개선을 위한 캐싱 적용
+3. Pessimistic Lock을 활용한 동시성 제어로 수량 데이터 정합성 보장
 
 
-B. 상품 등록 API (POST /api/items)
-- [x] 요청 필드 검증 (필수 필드 누락, 수량/가격은 양수만 허용, 상품 종류는 enum만 허용)
-- [x] 검증 실패 시 400 Bad Request + 상세 에러 메세지
-- [x] 등록 성공 시 201 Created + 상품 정보 반환
-
-
-C. 테스트코드
-- [x] 단위테스트 또는 통합
-- [x] 상품 등록 API 테스트 (성공/실패 케이스)
-- [x] 상품 목록 조회 API 테스트 (검색 / 필터/ 페이징)
-- [x] `./gradlew test` or `./mvnw test` 로 실행  
-
-- 테스트코드 실행 결과
-![테스트코드 실행 결과](https://github.com/user-attachments/assets/4bfde03d-1af5-4529-a15a-241daa7aeeb2)
-
-D. 선택 구현
-- [x] 상품 수정 API (테스트 코드 포함)
-- [x] 상품 삭제 API (테스트 코드 포함)
-- [x] 목록 조회 캐싱 적용
-- [x] 동일 상품 동시에 수정하는 경우 처리 방안 
-
-### 주요 의사 결정 (아키텍처/ DB 설계 / 예외처리 등)
+### 주요 의사 결정
 1. 동시성 제어 전략
    - 구현: 수량 차감 시 비관적 락(Pessimistic Lock) 도입
    - 이유: 아이템 수정 API에 대한 세부 요구 사항이 없어서 모든 필드를 업데이트하는 기능을 추가했다.
@@ -84,29 +61,4 @@ D. 선택 구현
    - 구현: 조회 기능은 ItemQueryService, 등록/수정/삭제 기능은 ItemCommandService로 구분
    - 이유: 서비스 클래스가 비대해지는 것을 막고, Query는 성능 최적화, Command는 데이터 정합성 처리에 집중하도록 구분했다.
    - 결과: 기능별로 클래스의 책임이 명확해져서 가독성이 좋고 유지보수하기 좋은 구조이다.
-   - TODO: 현재는 서비스 레이어 수준의 분리이지만, 트래픽이 증가하는 경우 Read DB와 Write DB를 물리적으로 분리하는 식으로 발전이 가능하다. 
-
-### AI 도구 사용 내용
-1. 동시성 제어 전략 검증
-   - `CompletableFuture`를 활용한 멀티스레드 테스트 코드의 가독성올 높이는 방법
-   - 비동기 실행 중 발생하는 `CompletionException` 예외 처리 방식
-
-2. Caffeine Cache 선정 근거 강화
-   - Spring Boot 3.x에서 해당 라이브러리를 권장하는 근거와 내부 알고리즘의 성능 검토
-
-3. 테스트 코드 데이터 작성 요청
-   - 테스트 코드에 사용할 더미 데이터 작성을 요청함
-
-4. 아이템 삭제 테스트 소요 시간
-   - 삭제 로직 수행 시 JPA 영속성 컨텍스트 동작 방식, em.flush/clear가 성능에 미치는 영향
-
--------------------
-Item 
-- id 상품 고유 ID : Long
-- sellerName 판매자 닉네임 : String (고려사항 : 한글? 글자수 제한)
-- category 카테고리 : ENUM(ELECTRONICS, FASHION, BOOK, ETC)
-- title 상품명 : String (고려사항 : 글자수 제한)
-- price 거래가격 : BigDecimal
-- quantity 판매수량 : int 
-- createdAt 등록일시 : LocalDateTime
-- (추가) updatedAt 수정일시 : LocalDateTime
+   - TODO: 현재는 서비스 레이어 수준의 분리이지만, 트래픽이 증가하는 경우 Read DB와 Write DB를 물리적으로 분리하는 식으로 발전이 가능하다.
