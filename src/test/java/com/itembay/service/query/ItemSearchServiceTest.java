@@ -33,7 +33,6 @@ public class ItemSearchServiceTest {
         // 테스트용 데이터 준비 (서버: 라엘, 가격: 1000~10000원 사이 10개 데이터 생성)
         for (int i = 1; i <= 10; i++) {
             itemRepository.save(Item.builder()
-                    .server("라엘service")
                     .sellerName("판매자" + i)
                     .itemType(ItemType.GAME_MONEY)
                     .title("골드 아이템 판매합니다 " + i)
@@ -50,7 +49,6 @@ public class ItemSearchServiceTest {
         // 1000원 ~ 5000원 사이의 아이템을 검색 (데이터 상 5개가 해당됨)
         ItemSearchReqData req = ItemSearchReqData.builder()
                 .title("골드")
-                .server("라엘service")
                 .itemType(ItemType.GAME_MONEY)
                 .minPrice(new BigDecimal("1000"))
                 .maxPrice(new BigDecimal("5000"))

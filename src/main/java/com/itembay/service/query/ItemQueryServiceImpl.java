@@ -44,8 +44,7 @@ public class ItemQueryServiceImpl implements ItemQueryService {
         JPAQuery<Item> contentQuery = jpaQueryfactory.selectFrom(ITEM)
                 .where(titleContains(req.title()),
                         priceBetween(req.minPrice(), req.maxPrice()),
-                        itemTypeEq(req.itemType()),
-                        serverEq(req.server()))
+                        itemTypeEq(req.itemType()))
                 .limit(req.getSize()).offset(pageable.getOffset())
                 .orderBy(getSortOption(req));
 
@@ -54,8 +53,7 @@ public class ItemQueryServiceImpl implements ItemQueryService {
                 .from(ITEM)
                 .where(titleContains(req.title()),
                         priceBetween(req.minPrice(), req.maxPrice()),
-                        itemTypeEq(req.itemType()),
-                        serverEq(req.server()));
+                        itemTypeEq(req.itemType()));
 
         return PageableExecutionUtils.getPage(contentQuery.fetch(), pageable, countQuery::fetchOne);
     }
@@ -73,10 +71,6 @@ public class ItemQueryServiceImpl implements ItemQueryService {
 
     private BooleanExpression itemTypeEq(ItemType itemType) {
         return itemType != null ? ITEM.itemType.eq(itemType) : null;
-    }
-
-    private BooleanExpression serverEq(String server) {
-        return StringUtils.hasText(server) ? ITEM.server.eq(server) : null;
     }
 
     private static OrderSpecifier<?> getSortOption(ItemSearchReqData req) {

@@ -11,9 +11,6 @@ import java.math.BigDecimal;
 @Builder
 public record ItemRegisterReqData(
 
-        @NotBlank(message = "서버 이름은 필수입니다.")
-        String server,
-
         @NotBlank(message = "판매자 닉네임은 필수입니다.")
         String sellerName,
 

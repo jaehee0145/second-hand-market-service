@@ -10,7 +10,6 @@ import java.math.BigDecimal;
 public record ItemSearchReqData(
 
         String title,
-        String server,
         ItemType itemType,
         BigDecimal minPrice,
         BigDecimal maxPrice,

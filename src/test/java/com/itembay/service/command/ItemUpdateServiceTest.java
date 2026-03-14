@@ -33,7 +33,6 @@ class ItemUpdateServiceTest {
     @BeforeEach
     void setUp() {
         Item item = Item.builder()
-                .server("라엘01")
                 .sellerName("테스터")
                 .itemType(ItemType.ITEM)
                 .title("기존 제목")
@@ -49,7 +48,6 @@ class ItemUpdateServiceTest {
         // given
         ItemUpdateReqData req = ItemUpdateReqData.builder()
                 .id(savedItemId)
-                .server("라엘02")
                 .sellerName("테스트")
                 .itemType(ItemType.GAME_MONEY)
                 .title("수정된 제목")
@@ -64,7 +62,6 @@ class ItemUpdateServiceTest {
         Item updatedItem = itemRepository.findById(savedItemId).orElseThrow();
         assertThat(updatedItem.getTitle()).isEqualTo("수정된 제목");
         assertThat(updatedItem.getPrice()).isEqualByComparingTo("20000");
-        assertThat(updatedItem.getServer()).isEqualTo("라엘02");
         assertThat(updatedItem.getQuantity()).isEqualTo(5);
         assertThat(updatedItem.getItemType()).isEqualTo(ItemType.GAME_MONEY);
     }
@@ -76,7 +73,6 @@ class ItemUpdateServiceTest {
         Long invalidId = 9999L;
         ItemUpdateReqData req = ItemUpdateReqData.builder()
                 .id(invalidId)
-                .server("라엘02")
                 .sellerName("테스트")
                 .itemType(ItemType.GAME_MONEY)
                 .title("수정된 제목")

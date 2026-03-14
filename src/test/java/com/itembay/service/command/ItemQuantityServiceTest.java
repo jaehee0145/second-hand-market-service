@@ -31,7 +31,6 @@ public class ItemQuantityServiceTest {
     void setUp() {
         // 초기 재고를 10개로 설정
         Item item = itemRepository.save(Item.builder()
-                .server("라엘01")
                 .sellerName("테스터")
                 .itemType(ItemType.ITEM)
                 .title("테스트 아이템")

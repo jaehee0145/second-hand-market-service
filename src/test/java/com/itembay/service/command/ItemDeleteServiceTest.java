@@ -33,7 +33,6 @@ class ItemDeleteServiceTest {
     void delete_item_succeeded() {
         //given
         Item item = Item.builder()
-                .server("라엘delete")
                 .sellerName("테스터")
                 .itemType(ItemType.ITEM)
                 .title("아이템delete")

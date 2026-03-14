@@ -30,7 +30,6 @@ class ItemRegisterServiceTest {
     @DisplayName("아이템 등록 성공")
     void register_item() {
         // given
-        String server = "라엘08";
         String sellerName = "아리";
         ItemType itemType = ItemType.GAME_MONEY;
         String title = "다야 팝니다 필요하신만큼 신청해주세요";
@@ -38,7 +37,6 @@ class ItemRegisterServiceTest {
         int quantity = 3000;
 
         ItemRegisterReqData newItem = ItemRegisterReqData.builder()
-                .server(server)
                 .sellerName(sellerName)
                 .itemType(itemType)
                 .title(title)
@@ -52,38 +50,13 @@ class ItemRegisterServiceTest {
         Item firstItem = itemList.getFirst();
 
         //then
-        assert firstItem.getServer().equals(server);
-    }
-
-    @Test
-    @DisplayName("아이템 등록 실패 - 서버 이름 누락")
-    void register_item_failed_server_name_missing() {
-        // given
-        String sellerName = "아리";
-        ItemType itemType = ItemType.GAME_MONEY;
-        String title = "다야 팝니다 필요하신만큼 신청해주세요";
-        BigDecimal price = new BigDecimal(25470);
-        int quantity = 3000;
-
-        ItemRegisterReqData newItem = ItemRegisterReqData.builder()
-                .sellerName(sellerName)
-                .itemType(itemType)
-                .title(title)
-                .price(price)
-                .quantity(quantity)
-                .build();
-
-        // when and then
-        assertThatThrownBy(() -> itemCommandService.registerItem(newItem))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("서버 이름은 필수입니다.");
+        assert firstItem.getSellerName().equals(sellerName);
     }
 
     @Test
     @DisplayName("아이템 등록 실패 - 가격 음수")
     void register_item_failed_price_negative() {
         // given
-        String server = "라엘08";
         String sellerName = "아리";
         ItemType itemType = ItemType.GAME_MONEY;
         String title = "다야 팝니다 필요하신만큼 신청해주세요";
@@ -91,7 +64,6 @@ class ItemRegisterServiceTest {
         int quantity = 3000;
 
         ItemRegisterReqData newItem = ItemRegisterReqData.builder()
-                .server(server)
                 .sellerName(sellerName)
                 .itemType(itemType)
                 .title(title)

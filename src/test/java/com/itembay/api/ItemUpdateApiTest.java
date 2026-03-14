@@ -42,7 +42,6 @@ class ItemUpdateApiTest {
     @BeforeEach
     void setUp() {
         Item item = Item.builder()
-                .server("라엘01")
                 .sellerName("테스터")
                 .itemType(ItemType.ITEM)
                 .title("기존 제목")
@@ -58,7 +57,6 @@ class ItemUpdateApiTest {
         // given
         ItemUpdateReqData req = ItemUpdateReqData.builder()
                 .id(savedItemId)
-                .server("라엘02")
                 .sellerName("테스트")
                 .itemType(ItemType.GAME_MONEY)
                 .title("수정된 제목")
@@ -82,7 +80,6 @@ class ItemUpdateApiTest {
         Long invalidId = 9999L;
         ItemUpdateReqData req = ItemUpdateReqData.builder()
                 .id(invalidId)
-                .server("라엘02")
                 .sellerName("테스트")
                 .itemType(ItemType.GAME_MONEY)
                 .title("수정된 제목")

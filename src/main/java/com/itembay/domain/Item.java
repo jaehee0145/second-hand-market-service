@@ -26,9 +26,6 @@ public class Item extends BaseEntity {
     private Long id;
 
     @Column(nullable = false, length = 50)
-    private String server;
-
-    @Column(nullable = false, length = 50)
     private String sellerName;
 
     @Enumerated(EnumType.STRING)
@@ -45,10 +42,9 @@ public class Item extends BaseEntity {
     private int quantity;
 
     @Builder
-    public Item(Long id, String server, String sellerName, ItemType itemType, String title, BigDecimal price, int quantity) {
+    public Item(Long id, String sellerName, ItemType itemType, String title, BigDecimal price, int quantity) {
         super();
         this.id = id;
-        this.server = server;
         this.sellerName = sellerName;
         this.itemType = itemType;
         this.title = title;
@@ -56,8 +52,7 @@ public class Item extends BaseEntity {
         this.quantity = quantity;
     }
 
-    public void update(String server, String sellerName, ItemType itemType, String title, BigDecimal price, int quantity) {
-        this.server = server;
+    public void update(String sellerName, ItemType itemType, String title, BigDecimal price, int quantity) {
         this.sellerName = sellerName;
         this.itemType = itemType;
         this.title = title;

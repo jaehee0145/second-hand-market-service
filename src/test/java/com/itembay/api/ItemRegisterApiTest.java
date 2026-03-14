@@ -34,7 +34,6 @@ class ItemRegisterApiTest {
     @DisplayName("아이템 등록 성공 - 201 응답")
     void register_item_succeeded() throws Exception {
         // given
-        String server = "라엘08";
         String sellerName = "아리";
         ItemType itemType = ItemType.GAME_MONEY;
         String title = "다야 팝니다 필요하신만큼 신청해주세요";
@@ -42,7 +41,6 @@ class ItemRegisterApiTest {
         int quantity = 3000;
 
         ItemRegisterReqData request = ItemRegisterReqData.builder()
-                .server(server)
                 .sellerName(sellerName)
                 .itemType(itemType)
                 .title(title)
@@ -63,7 +61,6 @@ class ItemRegisterApiTest {
     @DisplayName("아이템 등록 실패 - 가격 음수인 경우 400 응답")
     void register_item_failed_price_negative() throws Exception {
         // given
-        String server = "라엘08";
         String sellerName = "아리";
         ItemType itemType = ItemType.GAME_MONEY;
         String title = "다야 팝니다 필요하신만큼 신청해주세요";
@@ -71,7 +68,6 @@ class ItemRegisterApiTest {
         int quantity = 3000;
 
         ItemRegisterReqData request = ItemRegisterReqData.builder()
-                .server(server)
                 .sellerName(sellerName)
                 .itemType(itemType)
                 .title(title)
@@ -85,33 +81,6 @@ class ItemRegisterApiTest {
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isBadRequest())
                 .andExpect(content().string("거래 가격은 필수이고 0보다 커야 합니다."))
-                .andDo(print());
-    }
-
-    @Test
-    @DisplayName("아이템 등록 실패 - 서버 이름 누락인 경우 400 응답")
-    void register_item_failed_server_name_missing() throws Exception {
-        // given
-        String sellerName = "아리";
-        ItemType itemType = ItemType.GAME_MONEY;
-        String title = "다야 팝니다 필요하신만큼 신청해주세요";
-        BigDecimal price = new BigDecimal(25470);
-        int quantity = 3000;
-
-        ItemRegisterReqData request = ItemRegisterReqData.builder()
-                .sellerName(sellerName)
-                .itemType(itemType)
-                .title(title)
-                .price(price)
-                .quantity(quantity)
-                .build();
-
-        // when and then
-        mockMvc.perform(post("/api/items")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(request)))
-                .andExpect(status().isBadRequest())
-                .andExpect(content().string("서버 이름은 필수입니다."))
                 .andDo(print());
     }
 }

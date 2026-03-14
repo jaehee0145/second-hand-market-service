@@ -30,7 +30,7 @@
   A. 상품 목록 조회 API (GET /api/items)
 - [x] 페이지네이션(page, size)
 - [x] 검색 기능 (상품명 키워드 검색) **검색 키워드를 포함하는 상품명이 있으면 조회되도록 구현 - contains() 사용**
-- [x] 필터링 1개 이상 (itemType, server, minPrice ~ maxPrice) **서버명은 일치 조건으로 조회되도록 구현**
+- [x] 필터링 1개 이상 (itemType, minPrice ~ maxPrice) **서버명은 일치 조건으로 조회되도록 구현**
 - [x] 정렬 (createdAt, price)
 - [x] 로딩/에러/빈 경과에 대한 응답
 
@@ -103,7 +103,6 @@ D. 선택 구현
 -------------------
 Item 
 - id 상품 고유 ID : Long
-- server 서버명 : String
 - sellerName 판매자 닉네임 : String (고려사항 : 한글? 글자수 제한)
 - itemType 상품 종류 : ENUM(GAME_MONEY, ITEM, ACCOUNT, ETC)
 - title 상품명 : String (고려사항 : 글자수 제한)

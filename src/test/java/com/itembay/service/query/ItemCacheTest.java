@@ -38,7 +38,6 @@ class ItemCacheTest {
         // 테스트용 데이터 준비 (1000~10000원 사이 10개 데이터 생성)
         for (int i = 1; i <= 10; i++) {
             itemRepository.save(Item.builder()
-                    .server("라엘cache")
                     .sellerName("판매자" + i)
                     .itemType(ItemType.GAME_MONEY)
                     .title("골드 아이템 " + i)
@@ -54,7 +53,6 @@ class ItemCacheTest {
         // given
         ItemSearchReqData req = ItemSearchReqData.builder()
                 .title("골드")
-                .server("라엘cache")
                 .itemType(ItemType.GAME_MONEY)
                 .minPrice(new BigDecimal("1000"))
                 .maxPrice(new BigDecimal("5000"))

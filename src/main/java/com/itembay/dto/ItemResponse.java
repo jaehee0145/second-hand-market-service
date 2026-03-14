@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
 
 public record ItemResponse(
         Long id,
-        String server,
         String sellerName,
         ItemType itemType,
         String title,
@@ -19,7 +18,6 @@ public record ItemResponse(
     public static ItemResponse from(Item item) {
         return new ItemResponse(
                 item.getId(),
-                item.getServer(),
                 item.getSellerName(),
                 item.getItemType(),
                 item.getTitle(),

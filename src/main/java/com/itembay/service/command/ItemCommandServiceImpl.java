@@ -27,10 +27,6 @@ public class ItemCommandServiceImpl implements ItemCommandService {
     @CacheEvict(allEntries = true)
     public Item registerItem(ItemRegisterReqData req) {
 
-        if (req.server() == null || req.server().isBlank()) {
-            throw new IllegalArgumentException("서버 이름은 필수입니다.");
-        }
-
         if (req.sellerName() == null || req.sellerName().isBlank()) {
             throw new IllegalArgumentException("판매자 닉네임은 필수입니다.");
         }
@@ -52,7 +48,6 @@ public class ItemCommandServiceImpl implements ItemCommandService {
         }
 
         Item newItem = Item.builder()
-                .server(req.server())
                 .sellerName(req.sellerName())
                 .itemType(req.itemType())
                 .title(req.title())
@@ -69,7 +64,7 @@ public class ItemCommandServiceImpl implements ItemCommandService {
         Item item = itemRepository.findByIdWithLock(itemId)
                 .orElseThrow(() -> new ItemNotFoundException(itemId));
 
-        item.update(req.server(), req.sellerName(), req.itemType(), req.title(), req.price(), req.quantity());
+        item.update(req.sellerName(), req.itemType(), req.title(), req.price(), req.quantity());
         return item.getId();
     }
 

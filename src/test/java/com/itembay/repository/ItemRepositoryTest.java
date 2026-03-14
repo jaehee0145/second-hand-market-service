@@ -23,7 +23,6 @@ class ItemRepositoryTest {
     @DisplayName("아이템 등록 성공")
     void register_item() {
         // given
-        String server = "라엘08";
         String sellerName = "아리";
         ItemType itemType = ItemType.GAME_MONEY;
         String title = "다야 팝니다 필요하신만큼 신청해주세요";
@@ -31,7 +30,6 @@ class ItemRepositoryTest {
         int quantity = 3000;
 
         Item newItem = Item.builder()
-                .server(server)
                 .sellerName(sellerName)
                 .itemType(itemType)
                 .title(title)
@@ -44,6 +42,6 @@ class ItemRepositoryTest {
         Item savedItem = itemRepository.save(newItem);
 
         //then
-        assert savedItem.getServer().equals(server);
+        assert savedItem.getSellerName().equals(sellerName);
     }
 }
