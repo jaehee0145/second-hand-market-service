@@ -40,7 +40,7 @@ class ItemSearchApiTest {
             itemRepository.save(Item.builder()
                     .sellerName("판매자" + i)
                     .category(Category.ELECTRONICS)
-                    .title("골드 아이템 " + i)
+                    .title("맥북 " + i)
                     .price(new BigDecimal(10000 * i))
                     .quantity(1000)
                     .build());
@@ -51,8 +51,8 @@ class ItemSearchApiTest {
     @DisplayName("아이템 조회 성공 - 조건 필터링 및 페이징 응답 검증")
     void search_items_succeeded() throws Exception {
         // given
-        // '골드'가 포함된 상품명, 가격 10000원 ~ 60000원 사이 검색 (데이터 상 6개 해당)
-        String title = "골드";
+        // '맥북'가 포함된 상품명, 가격 10000원 ~ 60000원 사이 검색 (데이터 상 6개 해당)
+        String title = "맥북";
         String minPrice = "10000";
         String maxPrice = "60000";
 
@@ -68,7 +68,7 @@ class ItemSearchApiTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.content.length()").value(1))
-                .andExpect(jsonPath("$.content[0].title").value("골드 아이템 6"))
+                .andExpect(jsonPath("$.content[0].title").value("맥북 6"))
                 .andExpect(jsonPath("$.page").value(1))
                 .andExpect(jsonPath("$.size").value(5))
                 .andExpect(jsonPath("$.totalElements").value(6))
@@ -80,7 +80,7 @@ class ItemSearchApiTest {
     @DisplayName("아이템 조회 성공 - 빈 결과")
     void search_items_succeeded_empty_list() throws Exception {
         // given
-        String title = "골드";
+        String title = "맥북";
         String minPrice = "10000";
         String maxPrice = "60000";
 

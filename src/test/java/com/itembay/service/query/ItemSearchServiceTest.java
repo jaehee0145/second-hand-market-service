@@ -35,7 +35,7 @@ public class ItemSearchServiceTest {
             itemRepository.save(Item.builder()
                     .sellerName("판매자" + i)
                     .category(Category.ELECTRONICS)
-                    .title("골드 아이템 판매합니다 " + i)
+                    .title("중고 맥북 판매 " + i)
                     .price(new BigDecimal(1000 * i))
                     .quantity(100)
                     .build());
@@ -48,7 +48,7 @@ public class ItemSearchServiceTest {
         // given
         // 1000원 ~ 5000원 사이의 아이템을 검색 (데이터 상 5개가 해당됨)
         ItemSearchReqData req = ItemSearchReqData.builder()
-                .title("골드")
+                .title("맥북")
                 .category(Category.ELECTRONICS)
                 .minPrice(new BigDecimal("1000"))
                 .maxPrice(new BigDecimal("5000"))

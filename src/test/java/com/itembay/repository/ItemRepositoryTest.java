@@ -22,9 +22,9 @@ class ItemRepositoryTest {
     @DisplayName("아이템 등록 성공")
     void register_item() {
         // given
-        String sellerName = "아리";
+        String sellerName = "테스터3";
         Category category = Category.ELECTRONICS;
-        String title = "다야 팝니다 필요하신만큼 신청해주세요";
+        String title = "중고 맥북 판매";
         BigDecimal price = new BigDecimal(25470);
         int quantity = 3000;
 

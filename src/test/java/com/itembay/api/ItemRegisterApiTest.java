@@ -34,9 +34,9 @@ class ItemRegisterApiTest {
     @DisplayName("아이템 등록 성공 - 201 응답")
     void register_item_succeeded() throws Exception {
         // given
-        String sellerName = "아리";
+        String sellerName = "테스터1";
         Category category = Category.ELECTRONICS;
-        String title = "다야 팝니다 필요하신만큼 신청해주세요";
+        String title = "중고 맥북 판매";
         BigDecimal price = new BigDecimal(25470);
         int quantity = 3000;
 
@@ -53,7 +53,7 @@ class ItemRegisterApiTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.title").value("다야 팝니다 필요하신만큼 신청해주세요"))
+                .andExpect(jsonPath("$.title").value("중고 맥북 판매"))
                 .andDo(print());
     }
 
@@ -61,9 +61,9 @@ class ItemRegisterApiTest {
     @DisplayName("아이템 등록 실패 - 가격 음수인 경우 400 응답")
     void register_item_failed_price_negative() throws Exception {
         // given
-        String sellerName = "아리";
+        String sellerName = "테스터2";
         Category category = Category.ELECTRONICS;
-        String title = "다야 팝니다 필요하신만큼 신청해주세요";
+        String title = "중고 맥북 판매";
         BigDecimal price = new BigDecimal(-25470);
         int quantity = 3000;
 
