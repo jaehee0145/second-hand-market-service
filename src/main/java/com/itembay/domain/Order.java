@@ -37,4 +37,15 @@ public class Order extends BaseEntity {
     @Enumerated(EnumType.STRING)
     OrderStatus orderStatus;
 
+    public Order(Long itemId, Long buyerId, Long sellerId, BigDecimal price, OrderStatus orderStatus) {
+        this.itemId = itemId;
+        this.buyerId = buyerId;
+        this.sellerId = sellerId;
+        this.price = price;
+        this.orderStatus = orderStatus;
+    }
+
+    public static Order create(Long itemId, Long buyerId, Long sellerId, BigDecimal price) {
+        return new Order(itemId, buyerId, sellerId, price, OrderStatus.CREATED);
+    }
 }
