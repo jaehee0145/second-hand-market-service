@@ -34,18 +34,25 @@ public class Order extends BaseEntity {
     @Column(nullable = false, precision = 15, scale = 2)
     BigDecimal price;
 
+    int quantity;
+
+    @Column(nullable = false, precision = 15, scale = 2)
+    BigDecimal totalPrice;
+
     @Enumerated(EnumType.STRING)
     OrderStatus orderStatus;
 
-    public Order(Long itemId, Long buyerId, Long sellerId, BigDecimal price, OrderStatus orderStatus) {
+    public Order(Long itemId, Long buyerId, Long sellerId, BigDecimal price, int quantity, BigDecimal totalPrice, OrderStatus orderStatus) {
         this.itemId = itemId;
         this.buyerId = buyerId;
         this.sellerId = sellerId;
         this.price = price;
+        this.quantity = quantity;
+        this.totalPrice = totalPrice;
         this.orderStatus = orderStatus;
     }
 
-    public static Order create(Long itemId, Long buyerId, Long sellerId, BigDecimal price) {
-        return new Order(itemId, buyerId, sellerId, price, OrderStatus.CREATED);
+    public static Order create(Long itemId, Long buyerId, Long sellerId, BigDecimal price, int quantity, BigDecimal totalPrice) {
+        return new Order(itemId, buyerId, sellerId, price, quantity, totalPrice, OrderStatus.CREATED);
     }
 }
