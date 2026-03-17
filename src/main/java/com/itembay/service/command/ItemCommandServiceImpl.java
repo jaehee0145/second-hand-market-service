@@ -36,7 +36,7 @@ public class ItemCommandServiceImpl implements ItemCommandService {
         }
 
         if (req.title() == null || req.title().isBlank()) {
-            throw new IllegalArgumentException("상품명은 필수입니다.");
+            throw new IllegalArgumentException("아이템명은 필수입니다.");
         }
 
         if (req.price() == null || req.price().compareTo(BigDecimal.ZERO) < 0) {
