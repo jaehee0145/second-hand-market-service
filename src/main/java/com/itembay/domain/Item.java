@@ -66,7 +66,7 @@ public class Item extends BaseEntity {
         this.quantity = quantity;
     }
 
-    public Long decreaseQuantity(int amount) {
+    public void decreaseQuantity(int amount) {
         if (amount <= 0) {
             throw new InvalidQuantityException("차감 수량은 0보다 커야 합니다.");
         }
@@ -74,6 +74,5 @@ public class Item extends BaseEntity {
             throw new InvalidQuantityException("아이템 수량이 부족합니다.");
         }
         this.quantity -= amount;
-        return this.id;
     }
 }
